@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"net"
 
-	"github.com/devfullcycle/14-gRPC/internal/database"
-	"github.com/devfullcycle/14-gRPC/internal/pb"
-	"github.com/devfullcycle/14-gRPC/internal/service"
+	"github.com/GabrieIIeaI/14-gRPC/internal/database"
+	"github.com/GabrieIIeaI/14-gRPC/internal/pb"
+	"github.com/GabrieIIeaI/14-gRPC/internal/service"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
@@ -15,6 +15,7 @@ import (
 
 func main() {
 	db, err := sql.Open("sqlite3", "./db.sqlite")
+
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +23,7 @@ func main() {
 
 	categoryDb := database.NewCategory(db)
 	categoryService := service.NewCategoryService(*categoryDb)
-
+	
 	grpcServer := grpc.NewServer()
 	pb.RegisterCategoryServiceServer(grpcServer, categoryService)
 	reflection.Register(grpcServer)
